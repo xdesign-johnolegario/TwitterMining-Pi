@@ -1,0 +1,66 @@
+import time
+from tweepy import Stream
+from tweepy import OAuthHandler
+from tweepy.streaming import StreamListener
+import os
+import io
+
+consumer_key = "dAJxDkO2T5sMzDBtuz5LN9ORw"
+consumer_secret = "L5e2TYAI2yZX2JuwmFfXZV23KQ5GGqe3xOkVf7c8HP2lvM7XgC"
+access_token = "800388305623785476-Q2ToEqMguIZhbdhtm9P2ODg21e8F1Ep"
+access_token_secret="DTilA2WWlSgy9pfI6iXrGFyYB6YHX0UAIzXci0JhAvIPN"
+start_time = time.time()
+keyword_list = ['myhermes', 'parcel', 'bad', 'review', 'downtime', 'missing']
+
+#Listener class override
+class listener(StreamListener):
+
+	def __init__(self, start_time, time_limit = 60):
+ 
+		self.time = start_time
+		self.limit = time_limit
+		self.tweet_data = []
+		#self.ids = []
+		#self.texts = []
+		#self.times = []
+		#self.location = []
+ 
+	def on_data(self, data):
+ 
+		saveFile = io.open('raw_tweets.json', 'a', encoding='utf-8')
+ 
+		while (time.time() - self.time) < self.limit:
+
+			"""for tweet in tweet_data:
+				self.ids.append(tweet['id_str'])
+				self.texts.append(tweet['text'])
+				self.times.append(tweet['created_at'])"""
+			try:
+
+				self.tweet_data.append(data)
+				return True
+				#print(id_str)
+ 
+
+			except (BaseException, e):
+				print ('failed ondata,', str(e))
+				time.sleep(5)
+				pass
+ 
+		saveFile = io.open('raw_tweets.json', 'w', encoding='utf-8')
+		saveFile.write(u'[\n')
+		saveFile.write(','.join(self.tweet_data))
+		saveFile.write(u'\n]')
+		saveFile.close()
+		exit()
+ 
+	def on_error(self, status):
+ 
+		print (statuses)
+
+auth = OAuthHandler(consumer_key, consumer_secret) #OAuth object
+auth.set_access_token(access_token, access_token_secret)
+ 
+ 
+twitterStream = Stream(auth, listener(start_time, time_limit = 20)) #initialize Stream object with a time out limit
+twitterStream.filter(track=keyword_list, languages=['en'])  #call the filter method to run the Stream Object
