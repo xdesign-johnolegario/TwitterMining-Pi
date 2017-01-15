@@ -12,6 +12,6 @@ hermtweet
 https://twitter.com/testH17
 
 
-twittier stream api tutorial to get public streams simple tutorial
+twitter stream api tutorial to get public streams simple tutorial
 https://www.youtube.com/watch?v=pUUxmvvl2FE
 """
