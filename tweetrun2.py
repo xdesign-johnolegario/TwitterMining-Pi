@@ -20,26 +20,18 @@ class listener(StreamListener):
 		self.time = start_time
 		self.limit = time_limit
 		self.tweet_data = []
-		#self.ids = []
-		#self.texts = []
-		#self.times = []
-		#self.location = []
- 
+
+ #class the opens json file and all data will be appended as tweetdata and saved to the json file
 	def on_data(self, data):
  
 		saveFile = io.open('raw_tweets.json', 'a', encoding='utf-8')
  
 		while (time.time() - self.time) < self.limit:
-
-			"""for tweet in tweet_data:
-				self.ids.append(tweet['id_str'])
-				self.texts.append(tweet['text'])
-				self.times.append(tweet['created_at'])"""
+		
 			try:
 
 				self.tweet_data.append(data)
 				return True
-				#print(id_str)
  
 
 			except (BaseException, e):
