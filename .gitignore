@@ -1,0 +1,8 @@
+.sass-cache
+.idea
+.tmp
+*.sublime-project
+*.sublime-workspace
+front-end/bower_components/
+front-end/node_modules/
+front-end/target/
