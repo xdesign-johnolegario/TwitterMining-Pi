@@ -1,0 +1,31 @@
+/* New colours */
+$hermes-blue:           #0091CD;
+$hermes-light-blue:		#66BDE1;
+$hermes-green:          #64b400;
+$hermes-light-green:    #7ED321;
+$hermes-orange:         #E9530E;
+$hermes-yellow: 		#FED100;
+$hermes-dark-text:      #333333;
+$hermes-grey:           #3C3C41;
+$hermes-light-grey:		#EEEEEE;
+$hermes-background-grey: #E1E1E1;
+$hermes-background-light-grey: #F9F9F9;
+$hermes-white:          #FFFFFF;
+$hermes-black:          #000000;
+
+$hermes-blue-dark:      darken($hermes-blue, 10%);
+$hermes-grey-dark:      darken($hermes-grey, 10%);
+$brand-primary-dark:	#1B5067;
+
+$brand-warning:         #E8AE00;
+$brand-danger:          #ED1846;
+$medium-grey:			#999999;
+$button-green:			#64B400;
+$price-box-background:	#F2FBE9;
+$light-gradient-colour:       #C9EEFD;
+
+
+/* Shadows */
+$lowered-shadow:		1px 1px 1px rgba(0,0,0,0.05);
+$raised-shadow:			1px 1px 1px rgba(0, 0, 0, 0.2);
+$bottom-shadow:			0 4px 2px -2px rgba(0, 0, 0, 0.5);

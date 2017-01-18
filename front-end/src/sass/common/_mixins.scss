@@ -1,0 +1,46 @@
+@mixin border-radius($radius) {
+	-moz-border-radius: $radius;
+	-ms-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin transition($elem, $type, $duration) {
+	-webkit-transition: $elem $type $duration;
+	-moz-transition: $elem $type $duration;
+	-ms-transition: $elem $type $duration;
+	transition: $elem $type $duration;
+}
+
+
+@mixin vertical-align {
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+@mixin horizontal-align {
+	position: absolute;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+
+@mixin icon($icon) {
+    @extend .fa;
+    &:before {
+        @extend .fa-#{$icon}:before;
+    }
+}
+
+@mixin circleImageMask {
+	background-color: $hermes-white;
+
+	& img {
+		@include border-radius(50%);
+    	background-color: transparent;
+	}
+}
+

@@ -1,0 +1,40 @@
+<div class="twitter-page__base">
+	<div class="twitter-page__container">
+		<div class="row">
+			<div class="col-sm-6 twitter-page__column" ng-repeat="twitter in searchResult">
+				<div class="twitter-page__heading-row">
+					<div class="twitter-page__search">
+						<a ng-href="https://twitter.com/search?f=tweets&q={{twitter.search}}" class="twitter-page__search-link" target="_blank">{{twitter.search}}</a>
+					</div>
+					<div class="twitter-page__close">
+						<button class="twitter-page__close-button"><span class="fa fa-refresh"></span></button>
+						<button class="twitter-page__close-button"><span class="fa fa-close"></span></button>
+					</div>
+				</div>
+					
+				<div class="twitter-page__content">
+					<div class="twitter-page__content-tweet" ng-repeat="twitterContent in twitter.content">
+						<div class="twitter__row twitter__row-info">
+							<a ng-href="https://twitter.com/{{twitterContent.username}}" class="tweet__username" target="_blank">{{twitterContent.username}}</a>
+							<div class="tweet__date" ng-bind-html="twitterContent.dateTweeted"></div>
+							<div class="tweet__location">{{twitterContent.location}} --</div>
+						</div>
+						
+						<div class="twitter__row twitter__row-tweet">
+							<div class="tweet__tweet" ng-bind-html="twitterContent.tweet"></div>
+						</div>
+						<div class="twitter__row">
+							<div class="twitter__actions-container">
+								<span class="fa fa-retweet twitter__retweet"></span> <span class="twitter__actions">{{twitterContent.retweets}}</span>
+								<span class="fa fa-heart twitter__like"></span> <span class="twitter__actions">{{twitterContent.likes}}</span>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,129 @@
+@mixin transition($elem, $type, $duration) {
+	-webkit-transition: $elem $type $duration;
+	-moz-transition: $elem $type $duration;
+	-ms-transition: $elem $type $duration;
+	transition: $elem $type $duration;
+}
+
+.twitter-page__base {
+	background-color: $hermes-blue;
+	min-height: 1030px;
+}
+
+.twitter-page__container {
+	@extend .container;
+	width: 70%;
+
+	.twitter-page__column {
+		background-color: $hermes-light-grey;
+		margin-top: 25px;
+		border-left: $hermes-blue-dark 2px solid;
+		border-top: $hermes-blue-dark 2px solid;
+		border-right: $hermes-blue-dark 3px solid;
+		border-bottom: $hermes-blue-dark 3px solid;
+		border-radius: 2px;
+		max-height: 400px;
+		width: 48%;
+
+		&:nth-child(odd) {
+			margin-right: 5px;
+		}
+		&:nth-child(even) {
+			margin-left: 5px;
+		}
+	}
+
+	.twitter-page__heading-row {
+		@extend .row;
+
+		padding: 5px;
+		border-bottom: $hermes-blue 3px solid;
+
+
+		.twitter-page__search {
+			float: left;
+
+			font-size: 20px;
+		}
+
+		.twitter-page__close {
+			float: right;
+		}
+
+		.twitter-page__close-button {
+			border: none;
+			background-color: $hermes-blue;
+			color: white;
+		}
+ 	}
+
+ 	.twitter-page__content {
+		@extend .row;
+
+		padding: 10px;
+		height: 340px;
+		overflow-y: auto;
+
+		.twitter__row {
+			@extend .row;
+
+			margin: 0;
+		}
+		.twitter__row-info {
+			margin-bottom: 5px;
+		}
+		.twitter__row-tweet {
+			
+		}
+
+		.twitter-page__content-tweet {
+			//border: pink solid 1px;
+			min-height: 50px;
+			margin-bottom: 10px; 
+			border-bottom: darken($hermes-light-grey, 20%) solid 2px;
+
+			&:last-child{
+				border-bottom: none;
+			}
+		}
+
+		.tweet__username {
+			font-size: 14px;
+			display: inline-block;
+			float: left;
+		}
+		.tweet__tweet {
+			font-size: 14px;
+			display: block;
+		}
+		.tweet__date {
+			font-size: 12px;
+			display: inline-block;
+			float: right;
+		}
+		.tweet__location {
+			font-size: 12px;
+			display: inline-block;
+			float: right;
+			// padding-right: 10px;
+		}
+		.twitter__retweet {
+			font-size: 13px;
+			color: #19cf86;
+		}
+		.twitter__actions-container{
+			float: right;
+			padding-bottom: 5px;
+
+			.twitter__like {
+				font-size: 13px;
+				color: #e81c4f;
+			}
+			.twitter__actions {
+				font-size: 13px;
+			}
+
+		}
+		
+ 	}	
+}

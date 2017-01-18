@@ -1,0 +1,14 @@
+<nav id="navigation" class="burger-menu__nav" role="navigation">
+    <button type="button" ng-click="toggleMenu()" id="menu-toggle" class="burger-menu__burger" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="burger-menu__burger-bun"></span>
+        <span class="burger-menu__burger-veggie-filling"></span>
+        <span class="burger-menu__burger-bun"></span>
+    </button>
+
+    <div class="burger-menu__blur-filter" ng-class="{'hider':!showMenu,'slider':showMenu}">
+        <ul>
+            <li ng-repeat="menuItem in menuItems"><a ng-href="{{menuItem.link}}" ng-click="toggleMenu()">{{menuItem.label}}</a></li>
+        </ul>
+    </div>
+</nav>

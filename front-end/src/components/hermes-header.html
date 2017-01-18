@@ -1,0 +1,37 @@
+<header>
+    <div class="header-bottom">
+        <hermes-burger-menu
+        	class="col-xs-2"
+        	data-menu-items="menuItems"
+        	data-show-menu="showmenu"
+        	data-toggle-menu="toggleMenu()">
+        </hermes-burger-menu>
+
+        <div class="header-logo">
+            <div class="header-logo__container">
+                <a class="header-logo__image" href=".">myHermes</a>
+            </div>
+        </div>
+
+        <div id="skiptocontent">
+            <a href="about">skip to main content</a>
+        </div>
+
+        <div class="header__search-box-container">
+
+            <button class="search-box__preset" ng-click="mostRetweeted()"><span class="fa fa-retweet"></span></button>
+            <button class="search-box__preset" ng-click="mostLiked()"><span class="fa fa-heart"></span></button>
+            <button class="search-box__preset" ng-click=""><span class="fa fa-line-chart"></span></button>
+
+        	<form class="search-box__form" ng-submit="addTwitter()">
+             <input class="search-box__input" type="text" ng-model="twitterSearch" placeholder="Search term...">  
+             <button class="search-box__button" type="submit"> <span class="fa fa-search"></span> </button>
+        
+
+            </form>
+        </div>
+
+        
+
+    </div>
+</header>

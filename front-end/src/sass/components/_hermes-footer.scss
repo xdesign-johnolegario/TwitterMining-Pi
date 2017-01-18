@@ -1,0 +1,84 @@
+footer {
+    position: relative;
+    width: 100%;
+    bottom: 0;
+    background-color: $hermes-background-grey;
+    color: $hermes-white;
+    font-size: 0.8em;
+    font-family: $font-family-helvetica;
+    z-index: 1;
+
+    @media (min-width: $screen-sm) {
+        font-size: 0.9em;
+    }
+
+	.footer__sap-button {
+		height: 64px;
+		text-align: center;
+		margin: 34px 10px 14px 10px;
+	}
+
+    .footer__list-column {
+    	display: inline-block;
+    	width: 49.4%;
+    	font-family: $font-family-base;
+  		list-style: none;
+  		vertical-align: top;
+  		padding: 0 12px;
+  		margin-bottom: 20px;
+
+  		@media (min-width: $screen-sm) {
+  			width: 49.6%;
+  		}
+
+  		@media (min-width: $screen-md) {
+  			width: 24.6%;
+  		}
+
+  		> div {
+		    line-height: 26px;
+
+			a {
+		    	text-decoration: none;
+		    	color: $hermes-blue;
+		    }
+		}
+    }
+
+    .footer__list-header {
+    	font-weight: bold;
+    	color: $hermes-blue;
+    	border-bottom: $hermes-blue solid 2px;
+    }
+
+    .footer__social {
+    	float: right;
+    	font-size: 34px;
+    	margin-bottom: 10px;
+
+    	a, a:hover {
+    		color: $hermes-blue;
+    		text-decoration: none;
+    	}
+    }
+
+    .footer__text-left {
+    	float: left;
+    	margin-bottom: 20px;
+		color: $hermes-blue;
+		line-height: 1.3em;
+    }
+
+    .footer__text-right {
+    	float: right;
+    	color: $hermes-blue;
+    	text-align: right;
+  		line-height: 1.3em;
+    	margin-bottom: 20px;
+
+  		a, a:hover {
+  			color: $hermes-blue;
+    		text-decoration: none;
+    	}
+    }
+}
