@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Htweets
 
+#serializer class simply converts data from models.py and turns this into json format
 class HtweetSerializer(serializers.ModelSerializer):
 
     class Meta:
