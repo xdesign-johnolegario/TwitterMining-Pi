@@ -2,12 +2,18 @@
 import time
 
 import tweepy
+
 from twitter import *
 from celery import*
-from tweepy import Stream
+#from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
 from django.db import IntegrityError
+
+import django
+from django.conf import settings
+
+
 from hermt.models import Htweets
 import os
 import io

@@ -7,7 +7,7 @@ class HtweetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Htweets
         # fields =("tweet_id", "tweet_date", "tweet_source", "tweet_favour_count", "tweet_retweet_count", "tweet_text")
-        fields = '_all_'
+        fields = '__all__'
 
 
 
