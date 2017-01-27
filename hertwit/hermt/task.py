@@ -13,6 +13,7 @@ from django.db import IntegrityError
 import django
 from django.conf import settings
 
+django.setup()
 
 from hermt.models import Htweets
 import os
