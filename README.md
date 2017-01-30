@@ -17,3 +17,6 @@ https://www.youtube.com/watch?v=pUUxmvvl2FE
 Django and Angular JS 45 min connection tutorial video
 https://www.youtube.com/watch?v=VZ8NIoLN-yQ
 """
+django admin credentials
+username: hermesadmin
+password: Hermes11 (Capital-sensitive)
