@@ -9,15 +9,17 @@ from celery import*
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
 from django.db import IntegrityError
+import json
 
-import django
-from django.conf import settings
+import sys, os, django
 
+
+sys.path.append("C:/Users/hisg316/Desktop/hertwit")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hertwit.settings")
 django.setup()
 
+
 from hermt.models import Htweets
-import os
-import io
 
 consumer_key = "dAJxDkO2T5sMzDBtuz5LN9ORw"
 consumer_secret = "L5e2TYAI2yZX2JuwmFfXZV23KQ5GGqe3xOkVf7c8HP2lvM7XgC"
@@ -46,7 +48,7 @@ def get_tweets():
     tweets = api.search(
         q='@myhermes',
         max_id=max_id,
-        count=100
+        count=50
     )
 
     # Store the collected data into lists.
@@ -65,6 +67,7 @@ def get_tweets():
             tweets_favorite_cnt,
             tweets_retweet_cnt,
             tweets_text
+
     ):
         try:
             Htweets.objects.create(
@@ -75,5 +78,10 @@ def get_tweets():
                 tweet_retweet_cnt=m,
                 tweet_text=n,
             )
+
         except IntegrityError:
             pass
+
+
+
+
