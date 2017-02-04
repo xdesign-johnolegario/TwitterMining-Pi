@@ -26,3 +26,5 @@ https://dev.twitter.com/rest/tools/console
 
 POST: https://api.twitter.com/1.1/search/tweets.json?q=to%3Amyhermes&track=zipper
 http://text-processing.com/demo/sentiment/
+
+https://marcobonzanini.com/2015/05/17/mining-twitter-data-with-python-part-6-sentiment-analysis-basics/
