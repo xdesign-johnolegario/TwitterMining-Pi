@@ -7,11 +7,24 @@ module.exports = function() {
 
     return {
         source: path.join(__dirname, '../src'),
+        topFolder: path.join(__dirname, '../'),
         destination: dest,
         sassSrc: path.join(__dirname, '../src/sass/**/*.scss'),
         mainSrc: path.join(__dirname, '../src/scripts/**/*.js'),
         testSrc: path.join(__dirname, '../tests/**/*.js'),
         contentSrc: path.join(__dirname, '../src/content/**/*.json'),
+
+
+
+        jsLibraries: [
+            './node_modules/angular-slick-carousel/dist/angular-slick.min.js',
+            './bower_components/slick-carousel/slick/slick.min.js'
+        ],
+
+        slickCss: [
+            './bower_components/slick-carousel/slick/slick-theme.css',
+            './bower_components/slick-carousel/slick/slick.css'
+        ],
 
         //CMS
         cmsSrc: path.join(__dirname, '../cms/src'),

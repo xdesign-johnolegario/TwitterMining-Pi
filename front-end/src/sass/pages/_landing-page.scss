@@ -12,18 +12,17 @@
 
 .twitter-page__container {
 	@extend .container;
-	width: 70%;
 
 	.twitter-page__column {
 		background-color: $hermes-light-grey;
-		margin-top: 25px;
+		margin-top: 100px;
 		border-left: $hermes-blue-dark 2px solid;
 		border-top: $hermes-blue-dark 2px solid;
 		border-right: $hermes-blue-dark 3px solid;
 		border-bottom: $hermes-blue-dark 3px solid;
 		border-radius: 2px;
-		max-height: 400px;
-		width: 48%;
+		max-height: 700px;
+		
 
 		&:nth-child(odd) {
 			margin-right: 5px;
@@ -61,8 +60,8 @@
 		@extend .row;
 
 		padding: 10px;
-		height: 340px;
-		overflow-y: auto;
+		height: 500px;
+		
 
 		.twitter__row {
 			@extend .row;
@@ -81,46 +80,72 @@
 			min-height: 50px;
 			margin-bottom: 10px; 
 			border-bottom: darken($hermes-light-grey, 20%) solid 2px;
+			width: 100%;
+			display: inline-block;
+		}
 
-			&:last-child{
-				border-bottom: none;
-			}
+		.twitter-page__content-tweet-image {
+			//border: pink solid 1px;
+			min-height: 50px;
+			margin-bottom: 10px; 
+			border-bottom: darken($hermes-light-grey, 20%) solid 2px;
+			width: 45%;
+			display: inline-block;
+		}
+
+		.twitter-page__content-image {
+			width: 45%;
+			float: right;
+		}
+
+		.tweet__image {
+			width: 100%;
 		}
 
 		.tweet__username {
-			font-size: 14px;
+			font-size: 35px;
 			display: inline-block;
 			float: left;
+			text-transform: none;
 		}
 		.tweet__tweet {
-			font-size: 14px;
+			font-size: 40px;
 			display: block;
+			margin-bottom: 25px;
 		}
-		.tweet__date {
-			font-size: 12px;
-			display: inline-block;
-			float: right;
+
+		.twitter__date-location {
+			float: left;
+
+			.tweet__date {
+				font-size: 20px;
+				display: inline-block;
+				float: left;
+				margin-right: 10px;
+			}
+			.tweet__location {
+				font-size: 20px;
+				display: inline-block;
+				float: left;
+				// padding-right: 10px;
+			}
 		}
-		.tweet__location {
-			font-size: 12px;
-			display: inline-block;
-			float: right;
-			// padding-right: 10px;
-		}
-		.twitter__retweet {
-			font-size: 13px;
-			color: #19cf86;
-		}
+		
+		
 		.twitter__actions-container{
 			float: right;
 			padding-bottom: 5px;
 
 			.twitter__like {
-				font-size: 13px;
+				font-size: 25px;
 				color: #e81c4f;
 			}
+			.twitter__retweet {
+				font-size: 25px;
+				color: #19cf86;
+			}
 			.twitter__actions {
-				font-size: 13px;
+				font-size: 25px;
 			}
 
 		}

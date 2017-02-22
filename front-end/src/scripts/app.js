@@ -1,4 +1,4 @@
-angular.module('UxDesigns', ['ngRoute', 'matchMedia', 'ngSanitize'])
+angular.module('UxDesigns', ['ngRoute', 'matchMedia', 'ngSanitize', 'slickCarousel'])
 
     .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $routeProvider.

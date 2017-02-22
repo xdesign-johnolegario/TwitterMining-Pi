@@ -78,12 +78,29 @@
     gulp.task('html', function() {
         gulp.src(config.source + '/components/**/*').pipe(gulp.dest(config.destination + '/components'));
         gulp.src(config.source + '/pages/**/*').pipe(gulp.dest(config.destination + '/pages'));
+        gulp.src(config.topFolder + '/tweet_raw.json').pipe(gulp.dest(config.destination + '/tweets'));
+        gulp.src(config.source + 'tweets/**/*').pipe(gulp.dest(config.destination + '/tweets'));
         return gulp.src(config.source + '/index.html').pipe(gulp.dest(config.destination));
     });
 
     gulp.task('bower', function() {
         return bower();
     });
+
+    gulp.task('setUpSlick', function() {
+        return gulp.src(config.jsLibraries)
+            // .pipe($.count('## files', { logFiles: true }))
+            .pipe(gulp.dest('./target/scripts/'));
+    });
+
+    gulp.task('slickCss', function() {
+        return gulp.src(config.slickCss)
+            // .pipe($.count('## files', { logFiles: true }))
+            .pipe(gulp.dest('./target/css/'));
+    });
+
+
+    
 
     gulp.task('js', ['bower'], function() {
         //Ensure app.js comes first
@@ -133,7 +150,7 @@
     /**
      * Build tasks
      **/
-    gulp.task('build', ['bower', 'styles', 'html', 'images', 'js', 'fonts', 'node', 'content'], function () {
+    gulp.task('build', ['bower', 'styles', 'html', 'images', 'slickCss', 'setUpSlick', 'js', 'fonts', 'node', 'content'], function () {
     });
 
     gulp.task('webserver', ['styles', 'html'], function() {
