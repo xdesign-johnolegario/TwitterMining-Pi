@@ -27,7 +27,7 @@ class StdOutListener(StreamListener):
         self.tweet_data.append(data)
         with open('htweetings.json', 'w', encoding='utf-8') as out:
             json.dump(self.tweet_data, out)
-        exit()
+        
 
 
 def on_error(self, status):
