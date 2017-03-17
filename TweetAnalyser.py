@@ -1,20 +1,43 @@
 import json
 from pprint import pprint
+from sense_hat import SenseHat
 
-def readfile():
-    thetweets = []
-    with open('htweetings1.json') as json_data:
-        d = json.load(json_data)
-        json_data.close()
-        for k in d:
-            thetweet = {
-                'id': k["id"],
-                'created': k["created_at"],
-                'tweets': k["score"]
-            }
-            thetweets.append(thetweet)
+sense = SenseHat()
+blue = (0, 0, 255)
+r = (255, 0, 0)
 
-    with open('converted.json', 'w') as out:
-        json.dump(thetweets, out, sort_keys = True, indent = 4)
+image = [
+r,r,r,r,r,r,r,r,
+r,r,r,r,r,r,r,r,
+r,r,r,r,r,r,r,r,
+r,r,r,r,r,r,r,r,
+r,r,r,r,r,r,r,r,
+r,r,r,r,r,r,r,r,
+r,r,r,r,r,r,r,r,
+r,r,r,r,r,r,r,r
+]
 
-readfile()
+
+normalstate = sense.show_message("HERMES", text_colour=r, scroll_speed=0.06, back_colour=[255, 255, 255])
+badstate = image
+thescores = []
+
+with open('converted.json') as json_data:
+    e = json.load(json_data)
+    json_data.close()
+    for x in e:
+        actualtweets = {
+            'scores': x['score']
+        }
+        thescores.append(actualtweets)
+
+    for i in thescores:
+        if i['score'] > 0.8:
+            sense.set_pixel(badstate)
+            print (i)
+        else:
+            sense.show_message("HERMES", text_colour=r, scroll_speed=0.06, back_colour=[255, 255, 255])
+
+
+
+
