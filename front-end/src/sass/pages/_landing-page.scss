@@ -11,7 +11,11 @@
 }
 
 .twitter-page__container {
-	@extend .container;
+	width: 95%;
+	padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
 
 	.twitter-page__column {
 		background-color: $hermes-light-grey;

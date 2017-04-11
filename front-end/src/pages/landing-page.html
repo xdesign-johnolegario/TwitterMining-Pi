@@ -17,21 +17,21 @@
 							<div ng-repeat="twitter in twitterResult">
 								<div class="{{twitter.entities.media.length > 0 ? 'twitter-page__content-tweet-image' : 'twitter-page__content-tweet' }}">
 									<div class="twitter__row twitter__row-info">
-										<a ng-href="https://twitter.com/{{twitter.user.screen_name}}" class="tweet__username" target="_blank">@{{twitter.user.screen_name}}</a>
+										<a ng-href="https://twitter.com/{{twitter.tweet_screenname}}" class="tweet__username" target="_blank">@{{twitter.tweet_screenname}}</a>
 									</div>					
 									<div class="twitter__row twitter__row-tweet">
-										<div class="tweet__tweet" ng-bind-html="twitter.text"></div>
+										<div class="tweet__tweet" ng-bind-html="twitter.tweet_text"></div>
 									</div>
 									<div class="twitter__row">
 										<div class="twitter__date-location">
-											<div class="tweet__date">{{twitter.timestamp_ms | date:'medium'}}</div>
-											<div class="tweet__location">{{twitter.user.location}}</div>
+											<div class="tweet__date">{{twitter.tweet_timestamp | date:'medium'}}</div>
+											<div class="tweet__location">{{twitter.tweet_location}}</div>
 										</div>
 										
 
 										<div class="twitter__actions-container">
-											<span class="fa fa-retweet twitter__retweet"></span> <span class="twitter__actions">{{twitter.retweet_count}}</span>
-											<span class="fa fa-heart twitter__like"></span> <span class="twitter__actions">{{twitter.favorite_count}}</span>
+											<span class="fa fa-retweet twitter__retweet"></span> <span class="twitter__actions">{{twitter.tweet_recount}}</span>
+											<span class="fa fa-heart twitter__like"></span> <span class="twitter__actions">{{twitter.tweet_favour_count}}</span>
 										</div>
 									</div>
 								</div>

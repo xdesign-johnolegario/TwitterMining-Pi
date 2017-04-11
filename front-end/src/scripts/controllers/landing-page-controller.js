@@ -2,7 +2,7 @@ angular.module('UxDesigns')
 
 .controller('LandingPageController', ['$scope', '$location', '$http', '$timeout', function($scope, $location, $http, $timeout) {
 
-	$http.get('../tweets/tweet_raw.json')
+	$http.get('http://127.0.0.1:8000/htweets/?format=json')
     	.then(function(res) {
 
     		//load here
