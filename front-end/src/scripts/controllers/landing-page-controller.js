@@ -1,8 +1,12 @@
 angular.module('UxDesigns')
 
-.controller('LandingPageController', ['$scope', '$location', '$http', '$timeout', function($scope, $location, $http, $timeout) {
+.controller('LandingPageController', ['$scope', '$location', '$http', '$timeout', '$interval', function($scope, $location, $http, $timeout, $interval) {
 
-	$http.get('http://127.0.0.1:8000/htweets/?format=json')
+
+	getTweets();
+
+	function getTweets() {
+		$http.get('http://localhost:8000/htweets/?format=json')
     	.then(function(res) {
 
     		//load here
@@ -15,7 +19,16 @@ angular.module('UxDesigns')
 			$scope.twitterResult.ready = true;
 		    //end load here
     		console.log(res);
+			
     	});
+		console.log("please repeat");
+	}
+
+	
+
+	$interval(function() {
+		getTweets();
+	}, 60000);
 
 	
 
@@ -25,7 +38,7 @@ angular.module('UxDesigns')
             draggable: true,
             fade: true,
             speed: 1500,
-            autoPlaySpeed: 1000,
+            autoPlaySpeed: 2000,
             pauseOnHover: false,
             dots: false,
             lazyLoad: "ondemand",
