@@ -9,6 +9,8 @@ angular.module('UxDesigns')
 		$http.get('http://localhost:8000/htweets/?format=json')
     	.then(function(res) {
 
+			$scope.twitterResult = 0;
+
     		//load here
 
     		$scope.twitterResult = res.data;
