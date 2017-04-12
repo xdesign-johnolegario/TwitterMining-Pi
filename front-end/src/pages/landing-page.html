@@ -14,7 +14,7 @@
 				<div class="twitter-page__content">
 					<div ng-if="twitterResult && twitterResult.ready">
 						<slick settings="slickConfig" init-onload="true" data="twitterResult">
-							<div ng-repeat="twitter in twitterResult">
+							<div ng-repeat="twitter in twitterResult.slice().reverse()">
 								<div class="{{twitter.entities.media.length > 0 ? 'twitter-page__content-tweet-image' : 'twitter-page__content-tweet' }}">
 									<div class="twitter__row twitter__row-info">
 										<a ng-href="https://twitter.com/{{twitter.tweet_screenname}}" class="tweet__username" target="_blank">@{{twitter.tweet_screenname}}</a>
