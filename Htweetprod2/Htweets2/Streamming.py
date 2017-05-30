@@ -4,15 +4,38 @@
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
+from textblob.classifiers import NaiveBayesClassifier
 import json
 
 import sys, os, django
 
+from sense_hat import SenseHat
+sense = SenseHat()
 
-sys.path.append("C:/Users/hisg316/Desktop/Htweetprod2")
+r = [255, 0, 0]
+o = [255, 127, 0]
+y = [255, 255, 0]
+g = [0, 255, 0]
+w = [150, 150, 150]
+b = [0, 0, 255]
+i = [75, 0, 130]
+v = [159, 0, 255]
+e = [0, 0, 0]
+
+detectionstate = [
+y,y,y,y,y,y,y,y,
+y,y,y,y,y,y,y,y,
+y,y,y,y,y,y,y,y,
+y,y,y,y,y,y,y,y,
+y,y,y,y,y,y,y,y,
+y,y,y,y,y,y,y,y,
+y,y,y,y,y,y,y,y,
+y,y,y,y,y,y,y,y
+]
+
+sys.path.append("/home/hermes/Documents/Htweetprod2")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Htweetprod2.settings")
 django.setup()
-
 
 from Htweets2.models import Htweets2
 from profanity import profanity
@@ -24,31 +47,34 @@ access_token = "800388305623785476-Q2ToEqMguIZhbdhtm9P2ODg21e8F1Ep"
 access_token_secret = "DTilA2WWlSgy9pfI6iXrGFyYB6YHX0UAIzXci0JhAvIPN"
 
 
-swear_words =['anal', 'anus', 'arse', 'ballshack', 'balls', 'bastard', 'bitch', 'biatch',
-              'bloody', 'blowjob', 'blow job', 'bollock', 'bollok', 'boner', 'boob', 'bugger',
-              'bum', 'butt', 'buttplug', 'clitoris', 'cock', 'coon', 'crap', 'cunt', 'cunts','damn',
-              'dick', 'dildo', 'dyke', 'fag', 'feck', 'fellate', 'fellatio', 'felching', 'fuck',
-              'f u c k', 'fudgepacker', 'fudge packer', 'flange', 'Goddamn', 'God damn', 'hell',
-              'homo', 'jerk', 'jizz', 'knobend', 'knobend', 'knob end', 'labia', 'lmao', 'lmfao',
+swear_words =['arse', 'bastard', 'bitch', 'biatch',
+              'bollock', 'bollok', 'boner', 'boob', 'bugger','bum', 'butt', 'buttplug',
+              'clitoris', 'cock', 'coon', 'crap', 'cunt', 'cunts','damn','dick', 
+              'dyke', 'fag', 'feck', 'fellate', 'fellatio', 'felching', 'fuck','f u c k',
+        		'fucking','fudgepacker', 'fudge packer', 'flange', 'faggot', 'paki','knob', 'cuntflaps','semen',
+				'homo', 'jerk', 'jizz', 'knobend', 'knobend', 'knob end', 'labia',
               'muff', 'nigger', 'nigga', 'penis', 'piss', 'piss', 'poop', 'prick', 'pube', 'pussy',
-              'queer', 'scrotum', 'sex', 'shit', 's hit', 'slut', 'smegma', 'spunk', 'tit', 'tosser',
-               'retard', 'retards', 'twat', 'twats', 'vagina', 'wank', 'whore', 'wtf']
+              'queer', 'scrotum', 'sex', 'shit', 's hit', 'slut', 'smegma', 'spunk', 'tosser',
+               'retard', 'retards', 'twat', 'twats', 'vagina', 'wank', 'wanker', 'whore']
 
-critical_words_train = [('website is down', 'neg'),
-                        ('website down', 'neg'),
-                        ('the site is down' , 'neg'),
-                        ('your site is down', 'neg'),
-                        ('the website is down,' 'neg')]
 #load custom bad words
 profanity.load_words(swear_words)
 
-def classificationAnalysis(text):
-    # method that takes the text and spits out the argument
-    classified_text = len(text)
-
-    return classified_text
-
-
+critical_train = [
+    ('Cannot upload csv', 'neg'),
+    ('Cannot access payment', 'neg'),
+    ('Payment is not working', 'neg'),
+    ('Tracking is not working', 'neg'),
+    ('I cant track my parcel', 'neg'),
+    ('Site issue', 'neg'),
+    ('claims process not working', 'neg'),
+    ('i cant track my order online', 'neg'),
+    ('no tracking', 'neg'),
+    ('i cannot log in to myhermes account', 'neg'),
+    ('I cannot process my quotes', 'neg'),
+]
+#passing training data into the constructor
+cl = NaiveBayesClassifier(critical_train)
 
 # This is a basic listener that just prints received tweets to stdout.
 class StdOutListener(StreamListener):
@@ -59,11 +85,12 @@ class StdOutListener(StreamListener):
 
     def on_data(self, data):
         # pprint (data)
-        # saveFile = io.open('tweet_raw.json', 'a', encoding='utf-8')
+        # saveFile = io.open('tweet_raw.json', 'a', encoding='utf-8')co
         # thetweets = json.loads(data)
         print(json.loads(data))
         self.tweet_data.append(json.loads(data))
 
+        result = 'neg'
         tweets = Htweets2()
         for x in self.tweet_data:
             tweets.tweet_timestamp = x['timestamp_ms']
@@ -72,12 +99,18 @@ class StdOutListener(StreamListener):
             tweets.tweet_recount = x['retweet_count']
             tweets.tweet_favour_count = x['favorite_count']
             tweets.tweet_text = profanity.censor(x['text'])
-            tweets.tweet_location = x['user']['location']
 
-            if 'media' in self.tweet_data:
-                tweets.tweet_media_entities = x['entities']['media'][0]['media_url']
+            tweets.tweet_location = x['user']['location']
+            tweets.tweet_media_entities = x['source']
 
             tweets.save()
+
+            cl.classify(x['text'])
+            if cl.classify(x['text']) == result:
+                sense.set_pixels(detectionstate)
+            else:
+                pass
+
 
     def gettext(self):
         for tweets in self.tweet_data:
@@ -98,4 +131,4 @@ if __name__ == '__main__':
     stream = Stream(auth, l)
 
     # This line filter Twitter Streams to capture data by the keywords: '@myhermes
-    stream.filter(track=['@testH17'])
+    stream.filter(track=['@myhermes'])
