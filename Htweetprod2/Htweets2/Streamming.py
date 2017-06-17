@@ -66,6 +66,7 @@ critical_train = [
     ('Payment is not working', 'neg'),
     ('Tracking is not working', 'neg'),
     ('I cant track my parcel', 'neg'),
+    ('your tracking shows delivered but I didnt receive my parcel', 'ing'),
     ('Site issue', 'neg'),
     ('claims process not working', 'neg'),
     ('i cant track my order online', 'neg'),
