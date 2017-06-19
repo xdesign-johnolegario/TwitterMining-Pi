@@ -20,27 +20,26 @@
 										<a ng-href="https://twitter.com/{{twitter.tweet_screenname}}" class="tweet__username" target="_blank">@{{twitter.tweet_screenname}}</a>
 									</div>					
 									<div class="twitter__row twitter__row-tweet">
-										<div class="tweet__tweet" ng-bind-html="twitter.tweet_text"></div>
+										<div class="tweet__tweet" ng-bind-html="twitter.tweet_text" ng-style="{getColor(twitter.tweet_status, twitter.tweet_score)}"></div>
 									</div>
 									<div class="twitter__row">
 										<div class="twitter__date-location">
 											<div class="tweet__date">{{twitter.tweet_timestamp | date:'medium'}}</div>
 											<div class="tweet__location">{{twitter.tweet_location}}</div>
 										</div>
-										
 
 										<div class="twitter__actions-container">
 											<span class="fa fa-retweet twitter__retweet"></span> <span class="twitter__actions">{{twitter.tweet_recount}}</span>
 											<span class="fa fa-heart twitter__like"></span> <span class="twitter__actions">{{twitter.tweet_favour_count}}</span>
 										</div>
 									</div>
-								</div>
+
 								<div class="twitter-page__content-image" ng-if="twitter.entities.media.length >0">
 									<div ng-repeat="twitterMedia in twitter.entities.media" ng-if="$index < 1">
 										<img ng-src="{{twitterMedia.media_url}}" class="tweet__image">
 									</div>
-									
 								</div>
+
 							</div>
 						</slick>
 					</div>

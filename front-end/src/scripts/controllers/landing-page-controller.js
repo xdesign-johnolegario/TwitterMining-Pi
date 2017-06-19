@@ -41,7 +41,17 @@ angular.module('UxDesigns')
     	});
 	}
 
-	
+    $scope.getColor = function(status, score) {
+        if(status == 'normal'){
+            return 'color: blue'
+        } else {
+            if(status == 'neutral' || score == 'alert') {
+                return 'color: yellow'
+            } else {
+                return 'color: red'
+            }
+        }
+    }
 
 	$interval(function() {
 		
