@@ -85,8 +85,9 @@ critical_train = [
     ('website offline', 'critical'),
     ('site offline', 'critical'),
     ('website takendown', 'critical'),
-    ('website broken', 'critical')
-]
+    ('website broken', 'critical'),
+    ('is your website down', 'critical'),
+    ('when your website will be back online', 'critical')]
 
 critical_train_neg = [
     'tracking is down',
@@ -96,7 +97,8 @@ critical_train_neg = [
     'Payment is not working',
     'your login page is down',
     'cannot log in',
-    'unable to login']
+    'unable to login',
+    'when your website will be back online']
 
 neg_neutral = [
     'unable to upload csv today',
@@ -108,7 +110,13 @@ neg_neutral = [
     'your login page is down.Please sort this ASAP',
     'cant login to my account to book parcels in, Whats happening',
     'is there a problem with your site again today not able to login',
-    'your couriers left a blank card AGAIN so no unfortunately I dont have any tracking number etc but sure would like my blender pls']
+    'your couriers left a blank card AGAIN so no unfortunately I dont have any tracking number etc but sure would like my blender pls',
+    'urgent enquiry about my delivery. Have sent DM please can you update me Asap',
+    'imagine ordering a parcel, having it lost and then not being able to contact someone to resolve the issue appalling',
+    '@myhermes @ASOS_HeretoHelp @MotelRocks @KurtGeiger @HollisterCo @HollisterCoHelp @KurtGeigerHelp',
+    '@TeaPartyBeauty @boohoo_cshelp @myhermes For me it depends what time I order as to who delivers! Most of the time',
+    '@AlohaKirstie @boohoo_cshelp @myhermes I stopped paying for asos premier when they started using Hermes so switched,',
+    '@aliceedmonds99 I understand why ....']
 
 critical_train_ing =[
     'website is down',
@@ -168,7 +176,17 @@ ing_neutral = [
     'delivery note  Behind Bin - not any more on this busy street, thanks Caroline. Appalling delivery standards',
     'Shocking service from these amateurs agn! @asos pls stop using them. Delivery driver blatantly lied &amp; didnt even attmpt delivery!',
     'Have you contacted your post office? They normally leave mine there, if Im not in x',
-    'HAD REPLY WHAT IS NOT COVERED BY YOU CUSTOMERS RISK ONLY WHEN YOUR STAFF DELIBERALTY KICKED NOT JUST 1 BUT 2 BOXES 2 DAYS APART']
+    'HAD REPLY WHAT IS NOT COVERED BY YOU CUSTOMERS RISK ONLY WHEN YOUR STAFF DELIBERALTY KICKED NOT JUST 1 BUT 2 BOXES 2 DAYS APART',
+    'can you DM me your order details',
+    'TAKE HOURS, DAYS, OVER A WEEK TO DEAL WITH ANY ISSUES. SEE HOW LONG IT TAKES TO ANSWER MY TWEETS #WORSTCOMPANYEVER',
+    'Ugh...Post office then',
+    'are just the worse! -- Ill have to just shop at another retailer that doesnt use them. (60 order canceled)',
+    '@AlohaKirstie @boohoo_cshelp @myhermes Its beyond a joke now. The fact that I now cant shop places that use Hermes',
+    '@TeaPartyBeauty @boohoo_cshelp @myhermes (For ASOS)',
+    '@TeaPartyBeauty @boohoo_cshelp @myhermes For me it depends what time I order as to who delivers! Most of the time',
+    '@AlohaKirstie @boohoo_cshelp @myhermes I stopped paying for asos premier when they started using Hermes so switched,',
+    '@aliceedmonds99 I understand why ....',
+    '@myhermes @ASOS_HeretoHelp @MotelRocks @KurtGeiger @HollisterCo @HollisterCoHelp @KurtGeigerHelp']
 
 
 #passing training data into the constructor
