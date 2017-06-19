@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
+
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -31,20 +34,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_cron',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
     'rest_framework',
     'Htweets2.apps.Htweets2Config'
 ]
 
+
 MIDDLEWARE = [
 
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -54,6 +57,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CRON_CLASSES = [
+    "Htweetprod2.cron.MyCronJob",
+
+]
 ROOT_URLCONF = 'Htweetprod2.urls'
 
 TEMPLATES = [
@@ -120,12 +127,18 @@ USE_TZ = True
 
 USE_ETAGS = True
 
-CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ORIGIN_WHITELIST = (
-    'localhost:8003'
-)
 
+
+"""
+CELERYBEAT_SCHEDULE = {
+    "delete_tweeets_eachday": {
+        'task': "bots.twitter.tasks.get_recent_tweets",
+        # Every 1 hour
+        'schedule': timedelta(seconds=6),
+        'args': ("bigdata"),
+    },
+}"""
 
 
 # Static files (CSS, JavaScript, Images)

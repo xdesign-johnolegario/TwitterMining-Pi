@@ -4,10 +4,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Htweets2
 from .serializers import Htweets2Serializer
+from .Streamming import StdOutListener
 import json
 
+"""
 def load_tweets():
-    with open('/home/hermes/Documents/Htweetprod2/Htweets2/htweetings1.json') as json_data:
+
+        e = load_tweets()
+        for e in
         e = json.load(json_data)
         json_data.close()
 
@@ -24,7 +28,7 @@ def load_tweets():
 
             tweets.save()
 
-load_tweets()
+load_tweets()"""
 
 
 

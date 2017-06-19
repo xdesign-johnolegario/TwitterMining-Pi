@@ -1,0 +1,14 @@
+[
+    {"text": "Cannot upload csv.", "label": "neg"},
+    {"text": "Cannot access payment!", "label": "neg"},
+    {"text": "Payment is not working", "label": "neg"},
+    {"text": "claims process is not working", "label": "neg"},
+    {"text": "Tracking is not working", "label": "neg"},
+    {"text": "I cant track my parcel", "label": "neg"},
+    {"text": "Site issue", "label": "neg"},
+    {"text": "Tracking is not working", "label": "neg"},
+    {"text": "I cant track my order online", "label": "neg"},
+    {"text": "No Tracking", "label": "neg"},
+    {"text": "I cannot log in to myHermes account ", "label": "neg"},
+    {"text": "I cannot process quotes", "label": "neg"}
+]

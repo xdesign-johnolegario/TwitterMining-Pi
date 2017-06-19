@@ -11,6 +11,8 @@ class Htweets2(models.Model):
     tweet_recount = models.BigIntegerField(blank=True)
     tweet_location = models.CharField(blank=True, null=True, max_length=200)
     tweet_text = models.TextField(blank=True)
+    tweet_status = models.TextField(blank=True)
+    tweet_score = models.TextField(blank=True)
     tweet_media_entities = models.URLField(blank=True)
 
 
