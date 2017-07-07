@@ -14,13 +14,13 @@
 				<div class="twitter-page__content">
 					<div ng-if="twitterResult && twitterResult.ready">
 						<slick settings="slickConfig" init-onload="true" data="twitterResult">
-							<div ng-repeat="twitter in twitterResult.slice().reverse()">
+							<div ng-repeat="twitter in twitterResult.slice().reverse()" ng-style="{'background-color': getColor(twitter.tweet_status, twitter.tweet_score)}">
 								<div class="{{twitter.entities.media.length > 0 ? 'twitter-page__content-tweet-image' : 'twitter-page__content-tweet' }}">
 									<div class="twitter__row twitter__row-info">
 										<a ng-href="https://twitter.com/{{twitter.tweet_screenname}}" class="tweet__username" target="_blank">@{{twitter.tweet_screenname}}</a>
 									</div>					
 									<div class="twitter__row twitter__row-tweet">
-										<div class="tweet__tweet" ng-bind-html="twitter.tweet_text" ng-style="{getColor(twitter.tweet_status, twitter.tweet_score)}"></div>
+										<div class="tweet__tweet" ng-bind-html="twitter.tweet_text"></div>
 									</div>
 									<div class="twitter__row">
 										<div class="twitter__date-location">
@@ -39,9 +39,10 @@
 										<img ng-src="{{twitterMedia.media_url}}" class="tweet__image">
 									</div>
 								</div>
-
+								</div>
 							</div>
 						</slick>
+
 					</div>
 				</div>
 			</div>
