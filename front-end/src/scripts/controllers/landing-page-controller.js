@@ -16,6 +16,7 @@ angular.module('UxDesigns')
 
 			$scope.twitterResult.ready = true;
 
+
 			$scope.slickConfig = {
 				enabled: true,
 				autoplay: true,
@@ -41,14 +42,19 @@ angular.module('UxDesigns')
     	});
 	}
 
-    $scope.getColor = function(status, score) {
-        if(status == 'normal'){
-            return 'color: blue'
+    $scope.getColor = function (status, score) {
+        if (status == 'normal' && score == 'neutral') {
+            return 'white'
         } else {
-            if(status == 'neutral' || score == 'alert') {
-                return 'color: yellow'
+            if (status == 'not normal' && score == 'alert') {
+                return 'yellow'
             } else {
-                return 'color: red'
+            	if (status == 'not normal' && score == 'critical'){
+                    return 'red'
+				}else{
+            		return 'color-white'
+				}
+
             }
         }
     }
