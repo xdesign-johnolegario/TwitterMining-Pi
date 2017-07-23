@@ -6,13 +6,19 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 from textblob import TextBlob
 from nose.tools import *
+import sys
+from pprint import pprint
 from textblob.classifiers import PositiveNaiveBayesClassifier
 from textblob.classifiers import NaiveBayesClassifier
 import json
-
 import sys, os, django
 
-
+if sys.version_info[0] == 2:
+    access = 'r'
+    kwargs = {}
+else:
+    access = 'wt'
+    kwargs = {'newline': ''}
 
 r = [255, 0, 0]
 o = [255, 127, 0]
@@ -75,6 +81,7 @@ profanity.load_words(swear_words)
 
 critical_train = [
     ('Cannot upload csv', 'alert'),
+    ('Please help me guys @myhermes having issues with your online chat room.', 'alert'),
     ('Payment not working', 'alert'),
     ('Tracking not working', 'alert'),
     ('claims process not working', 'alert'),
@@ -87,7 +94,25 @@ critical_train = [
     ('website takendown', 'critical'),
     ('website broken', 'critical'),
     ('is your website down', 'critical'),
-    ('when your website will be back online', 'critical')]
+    ('when your website will be back online', 'critical'),
+    ('Is your site still broken? I am just about to move to Collect plus.', 'critical')]
+
+critical_train2 = [
+    ('@ASOS should always use @DPD_UK instead as theyre actually reliable', 'neu'),
+    ('should always use instead as theyre actually reliable', 'neu'),
+    ('@LermanSchmidt: @TheVampsJames @myhermes My #TeenChoice vote for #ChoiceMusicGroup is @TheVampsband.', 'neu'),
+    ('Do @myhermes ever deliver at a time before 6pm', 'neu'),
+    ('@myhermes @boohoo Hey DM us your order number and we will happily check this out for you.', 'neu'),
+    ('can u check ur dms pls', 'neu'),
+    ('Have any other bloggers had a terrible experience with @myhermes where they just deliver our blogger mail into thin air! #fbloggers', 'neu'),
+    ('either your courier is lying or they can move at the speed at which I blink', 'neu'),
+    ('what does days even say ??? No contact number', 'neu'),
+    ('can someone let me know at what time my order will be delivered by ??', 'neu'),
+    ('tracking is down', 'neg'),
+    ('tracking not working', 'neg'),
+    ('I cannot process my quotes', 'neg'),
+    ('Cannot access payment', 'neg')]
+
 
 critical_train_neg = [
     'tracking is down',
@@ -97,100 +122,37 @@ critical_train_neg = [
     'Payment is not working',
     'your login page is down',
     'cannot log in',
-    'unable to login',
-    'when your website will be back online']
-
-neg_neutral = [
-    'unable to upload csv today',
-    'tracking says it supposed to be delievered but it isnt',
-    'Not delivered and no info on tracking.',
-    'My tracking details say my courier should deliver today',
-    'can i get an update on tracking number',
-    'No progress on the online tracker',
-    'your login page is down.Please sort this ASAP',
-    'cant login to my account to book parcels in, Whats happening',
-    'is there a problem with your site again today not able to login',
-    'your couriers left a blank card AGAIN so no unfortunately I dont have any tracking number etc but sure would like my blender pls',
-    'urgent enquiry about my delivery. Have sent DM please can you update me Asap',
-    'imagine ordering a parcel, having it lost and then not being able to contact someone to resolve the issue appalling',
-    '@myhermes @ASOS_HeretoHelp @MotelRocks @KurtGeiger @HollisterCo @HollisterCoHelp @KurtGeigerHelp',
-    '@TeaPartyBeauty @boohoo_cshelp @myhermes For me it depends what time I order as to who delivers! Most of the time',
-    '@AlohaKirstie @boohoo_cshelp @myhermes I stopped paying for asos premier when they started using Hermes so switched,',
-    '@aliceedmonds99 I understand why ....']
+    'unable to login']
 
 critical_train_ing =[
     'website is down',
-    'website is broken']
+    'website is broken'
+    'website offline',
+    'website takendown',
+    'site offline',
+    'is your website down',
+    'when your website will be back online'
+    'Is your site still broken? I am just about to move to Collect plus.']
 
-ing_neutral = [
-    'the website is having issues  I cant get quotes out ',
-    'is your system down cant get pass login screen or book manually as a new user',
-    'can you tell me if your website is down at the minute, ive not been able to get on it since last night',
-    'Is your website down again',
-    'package has gone missing',
-    'Spoke to a lovely agent who was very helpful though',
-    'Absolutely disgusting service. Damaged my plastic item',
-    'why did your courier leave my parcel with a random house',
-    'Hi, a courier should have collected my parcel yesterday but did not turn up',
-    'Thanks for declaring our package lost! That is one #ruinedwedding day! #lostpackage #badcustomerservice',
-    'parcel been out for delivery for 3 days and no correspondence from them at all.',
-    'Thank you',
-    'Ive sent it via DM. Please let me know',
-    'how am I meant to contact you or your driver when he doesnt leave a contact number? Even when asked to! Terrible service',
-    'They r so bad',
-    'Ughhh! And never reply. Shall we protest!',
-    'they are so bad',
-    'your courier is a liar, no delivery attempt was made, I was home all day, wheres my parcel',
-    'Still no response since yesterday DMd multiple times ??? This is not helpful',
-    'inadministrationsoonhopefully',
-    'in administration soon hope fully',
-    'Hi can you confirm where my parcel is please? It didnt arrive yesterday despite being home. Order No is ',
-    'have the most useless live chat system. All they ever do is tell you to wait another 24 hours &amp; cant tell you a single detail',
-    'the last 2 deliveries have been left in a secure porch,I dont have 1. please ensure',
-    'Why is your customer service set up so that nothing gets resolved. Is it because youre so incompetent',
-    'I dont want you FAQ page, I an actual person to talk to me and get my parcel delivered.',
-    'AND I wrecked a nail by shredding the tube from the top down to the dent so I could get the goods out wit',
-    'Come on I want to play my new  vinyl its not quite the same in Spotify',
-    'Thoroughly detailed delivery slip from. Have no idea who this is for (its a shared house) or how to arrange redelivery. Help pls!',
-    'MY PARCEL got delivered to somebody else? Called different myhermes offices and no one can help! You must know who you gave it'
-    'post Card though your door saying theyve left a parcel in your porch but you dont have a porch... or the parcel!',
-    'Another parcel of mine has now been lost - tracking says stuck in the hub since 7th June? Chat service cut me off and phone service faulty',
-    'Yay! My @boohoo stuff has arrived but Im not happy that the packaging absolutely stinks of cigarette smoke  Im not impressed!!!',
-    'Hi, we are responding to messages in chronological order so we should be in touch soon',
-    'we love your service and would like to establish a partnership with our members club. Who can we contact',
-    'posted through letterbox',
-    'Disgusted myhermes ordered shoes 4 Nans funeral Mon &amp paid 4 next day delivery. Stayed in 2day 4 delivery',
-    'Live chat just ended the chat as they washed hands off delivery its their INCOMPETENT courier WHERE IS MY PARCEL',
-    'Retailers shouldnt use as they are USELESS! @DPD_UK are brilliant, never had a problem. Give hour time slot &amp; always turns up!',
-    'hi put the wrong postcode for an order that should be delivered by you guys today. Put home postcode not work but work address',
-    'Yes there is but Ill send it again',
-    'I believe @myhermes are secretly stock piling goods that they say get delivered but dont #oneforyouoneforme',
-    'why are our packages just being left outside for someone to take? We are in the house! Knocking doesnt take 2 seconds!',
-    'WORST company Ive ever dealt with',
-    'What is their argument?',
-    'should not be "makes delivery easy" but "causes headaches easy',
-    'trying to locate 2 parcels and tracking number is invalid - urgently need someone to get back to me ASAP',
-    '@ASOS_HeretoHelp',
-    'What we all see when you open your mouth... https://t.co/2wsVOH0Aau',
-    'can you respond to my DM please -order said it was delivered yesterday and it wasnt.',
-    'delivery note  Behind Bin - not any more on this busy street, thanks Caroline. Appalling delivery standards',
-    'Shocking service from these amateurs agn! @asos pls stop using them. Delivery driver blatantly lied &amp; didnt even attmpt delivery!',
-    'Have you contacted your post office? They normally leave mine there, if Im not in x',
-    'HAD REPLY WHAT IS NOT COVERED BY YOU CUSTOMERS RISK ONLY WHEN YOUR STAFF DELIBERALTY KICKED NOT JUST 1 BUT 2 BOXES 2 DAYS APART',
-    'can you DM me your order details',
-    'TAKE HOURS, DAYS, OVER A WEEK TO DEAL WITH ANY ISSUES. SEE HOW LONG IT TAKES TO ANSWER MY TWEETS #WORSTCOMPANYEVER',
-    'Ugh...Post office then',
-    'are just the worse! -- Ill have to just shop at another retailer that doesnt use them. (60 order canceled)',
-    '@AlohaKirstie @boohoo_cshelp @myhermes Its beyond a joke now. The fact that I now cant shop places that use Hermes',
-    '@TeaPartyBeauty @boohoo_cshelp @myhermes (For ASOS)',
-    '@TeaPartyBeauty @boohoo_cshelp @myhermes For me it depends what time I order as to who delivers! Most of the time',
-    '@AlohaKirstie @boohoo_cshelp @myhermes I stopped paying for asos premier when they started using Hermes so switched,',
-    '@aliceedmonds99 I understand why ....',
-    '@myhermes @ASOS_HeretoHelp @MotelRocks @KurtGeiger @HollisterCo @HollisterCoHelp @KurtGeigerHelp']
 
+neg_neutral = []
+with open('C:\\Users\\hisg316\\Desktop\\Htweetprod2\\Htweets2\\neg_neutral.txt', 'r') as inputfile:
+    for line in inputfile:
+        neg_neutral.append(line.rstrip('\n'))
+#pprint (neg_neutral)
+
+
+ing_neutral = []
+with open('C:\\Users\\hisg316\\Desktop\\Htweetprod2\\Htweets2\\ing_neutral.txt', 'r') as inputfile1:
+    for line2 in inputfile1:
+        ing_neutral.append(line2.rstrip('\n'))
+#pprint (ing_neutral)
+
+train = critical_train + critical_train2
 
 #passing training data into the constructor
 cl = NaiveBayesClassifier(critical_train)
+cl2 = NaiveBayesClassifier(train)
 
 # This is a basic listener that just prints received tweets to stdout.
 class StdOutListener(StreamListener):
@@ -223,14 +185,6 @@ class StdOutListener(StreamListener):
                     tweets.tweet_location = x['user']['location']
                     tweets.tweet_media_entities = x['source']
 
-                    """
-                    cl.classify(x['text'])
-                    if cl.classify(x['text']) == 'neg':
-                        print 'alert'
-                        tweets.tweet_score = 'alert'
-                    else:
-                        print 'critical'
-                        tweets.tweet_score = 'critical' """
 
                     #critical_train2 = [(x['text']), 'norm']
                     #cl2 = NaiveBayesClassifier(critical_train2)
@@ -250,6 +204,10 @@ class StdOutListener(StreamListener):
                         print 'normal-no alert'
                         tweets.tweet_status = 'normal'
                         tweets.tweet_score = 'neutral'
+                    elif cl2.classify(x['text']) == 'neu':
+                        print 'normal-neutral'
+                        tweets.tweet_score = 'neutral'
+                        tweets.tweet_status = 'normal'
                     elif classifier1.classify(x['text']) is True and cl.classify(x['text']) == 'critical':
                         print 'not normal - critical'
                         tweets.tweet_status = 'not normal'
@@ -261,9 +219,9 @@ class StdOutListener(StreamListener):
 
                     tweets.save()
 
-    def gettext(self):
-        for tweets in self.tweet_data:
-            print(tweets["text"])
+    #def gettext(self):
+        #for tweets in self.tweet_data:
+            #print(tweets["text"])
 
 
     def on_error(self, status):
